@@ -16,7 +16,11 @@ public class Application {
                 "mueller,meier,schulze".split(","))
                 .forEach(
                         a -> {
-                            customerRepository.save(new Customer(a));
+                            Customer customer = new Customer(a);
+                            Reservation reservation = new Reservation("Spectre");
+                            customer.addReservation(reservation);
+
+                            customerRepository.save(customer);
                         });
     }
 

@@ -16,6 +16,7 @@ import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.ResourceServlet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +43,8 @@ public class CustomerControllerTest {
         mickey = new Customer("Mickey Mouse");
         minnie = new Customer("Minnie Mouse");
         pluto = new Customer("Pluto");
+        Reservation reservation = new Reservation("007");
+        pluto.addReservation(reservation);
 
         repository.deleteAll();
         repository.save(Arrays.asList(mickey, minnie, pluto));
@@ -78,6 +81,16 @@ public class CustomerControllerTest {
                 .delete("/customers/{id}", plutoId).
                 then().
                 statusCode(HttpStatus.NO_CONTENT.value());
+    }
+
+    @Test
+    public void canSaveDonald() {
+        Customer donald = new Customer("Donald Duck");
+
+        given().contentType("application/json")
+                .body(donald)
+                .expect().statusCode(HttpStatus.CREATED.value())
+                .when().post("/customers");
     }
 
     @Test

@@ -27,4 +27,12 @@ class CustomerController {
     void delete(@PathVariable("id") Integer id) {
         repository.delete(id);
     }
+
+    @RequestMapping(value = "/customers", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    Customer save(@RequestBody Customer customer) {
+        //Customer customer = new Customer(customerDTO.getName());
+        repository.save(customer);
+        return customer;
+    }
 }
