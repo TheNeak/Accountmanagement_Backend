@@ -41,6 +41,7 @@ public class Customer {
     public void addReservation(Reservation reservation)
     {
         this.reservations.add(reservation);
+        reservation.setCustomer(this);
     }
 
     public List<Reservation> getReservations() {

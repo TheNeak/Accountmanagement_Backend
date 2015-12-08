@@ -30,6 +30,10 @@ public class Reservation {
         return movie;
     }
 
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if(o instanceof Reservation){
