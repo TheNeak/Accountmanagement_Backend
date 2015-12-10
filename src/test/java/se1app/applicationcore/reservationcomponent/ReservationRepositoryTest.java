@@ -1,4 +1,4 @@
-package se1app.applicationcore;
+package se1app.applicationcore.reservationcomponent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import se1app.applicationcore.Application;
+import se1app.applicationcore.customercomponent.Customer;
+import se1app.applicationcore.customercomponent.CustomerRepository;
+import se1app.applicationcore.reservationcomponent.Reservation;
+import se1app.applicationcore.reservationcomponent.ReservationRepository;
 
 import java.util.List;
 
@@ -25,11 +30,15 @@ public class ReservationRepositoryTest {
     @Before
     public void setup() {
         Customer stefan = new Customer("Stefan");
-        stefan.addReservation(new Reservation("Spectre"));
+        Reservation reservation = new Reservation("Spectre");
+        stefan.addReservation(reservation);
+        reservation.setCustomer(stefan);
         customerRepository.save(stefan);
 
         Customer ina = new Customer("Ina");
-        ina.addReservation(new Reservation("Spectre"));
+        reservation = new Reservation("Spectre");
+        ina.addReservation(reservation);
+        reservation.setCustomer(ina);
         customerRepository.save(ina);
     }
 

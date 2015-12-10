@@ -1,7 +1,12 @@
-package se1app.applicationcore;
+package se1app.applicationcore.reservationcomponent;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import se1app.applicationcore.customercomponent.Customer;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Reservation {
@@ -12,8 +17,12 @@ public class Reservation {
 
     private String movie;
 
+    @JsonIgnore
     @ManyToOne
     private Customer customer;
+
+    @ManyToMany
+    private List<Seat> seats = new ArrayList<>();
 
     public Reservation() {}
 
@@ -32,6 +41,15 @@ public class Reservation {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void addSeat(Seat seat)
+    {
+        this.seats.add(seat);
     }
 
     @Override

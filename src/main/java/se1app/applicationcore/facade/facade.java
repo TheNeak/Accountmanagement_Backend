@@ -1,20 +1,27 @@
-package se1app.applicationcore;
+package se1app.applicationcore.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import se1app.applicationcore.customercomponent.Customer;
+import se1app.applicationcore.customercomponent.CustomerRepository;
+import se1app.applicationcore.customercomponent.CustomerUseCases;
 
 import java.util.List;
 
 @RestController
-class CustomerController {
+class Facade {
 
     @Autowired
     private CustomerRepository repository;
 
+    @Autowired
+    private CustomerUseCases customerUseCases;
+
     @RequestMapping("/customers")
-    List<Customer> characters() {
-        return repository.findAll();
+    List<Customer> getAllCustomers()
+    {
+        return customerUseCases.getAllCustomers();
     }
 
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)

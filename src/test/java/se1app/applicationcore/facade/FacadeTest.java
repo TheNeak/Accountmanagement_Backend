@@ -1,7 +1,6 @@
-package se1app.applicationcore;
+package se1app.applicationcore.facade;
 
 import static com.jayway.restassured.RestAssured.*;
-import static com.jayway.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
@@ -16,7 +15,10 @@ import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.ResourceServlet;
+import se1app.applicationcore.Application;
+import se1app.applicationcore.customercomponent.Customer;
+import se1app.applicationcore.customercomponent.CustomerRepository;
+import se1app.applicationcore.reservationcomponent.Reservation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +27,7 @@ import java.util.LinkedList;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest("server.port:0")
-public class CustomerControllerTest {
+public class FacadeTest {
 
     @Autowired
     CustomerRepository repository;
@@ -45,6 +47,7 @@ public class CustomerControllerTest {
         pluto = new Customer("Pluto");
         Reservation reservation = new Reservation("007");
         pluto.addReservation(reservation);
+        reservation.setCustomer(pluto);
 
         repository.deleteAll();
         repository.save(Arrays.asList(mickey, minnie, pluto));

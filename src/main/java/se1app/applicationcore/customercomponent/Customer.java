@@ -1,4 +1,7 @@
-package se1app.applicationcore;
+package se1app.applicationcore.customercomponent;
+
+import se1app.applicationcore.reservationcomponent.Reservation;
+import se1app.applicationcore.util.EmailType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -8,6 +11,8 @@ import java.util.List;
 public class Customer {
 
     private String name;
+
+    private EmailType email;
 
     // Technische ID der Entität (Auto-generiert)
     // Wir würden besser zusätzlich noch eine fachliche ID definieren
@@ -30,6 +35,12 @@ public class Customer {
         this.name = name;
     }
 
+    public Customer(String name, EmailType email)
+    {
+        this.name = name;
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -38,10 +49,17 @@ public class Customer {
         return name;
     }
 
+    public EmailType getEmail() {
+        return email;
+    }
+
+    public void setEmail(EmailType email) {
+        this.email = email;
+    }
+
     public void addReservation(Reservation reservation)
     {
         this.reservations.add(reservation);
-        reservation.setCustomer(this);
     }
 
     public List<Reservation> getReservations() {

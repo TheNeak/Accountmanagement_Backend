@@ -1,4 +1,4 @@
-package se1app.applicationcore;
+package se1app.applicationcore.customercomponent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -7,9 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
+import se1app.applicationcore.Application;
+import se1app.applicationcore.customercomponent.Customer;
+import se1app.applicationcore.customercomponent.CustomerRepository;
+import se1app.applicationcore.customercomponent.CustomerUseCases;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

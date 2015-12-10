@@ -1,4 +1,4 @@
-package se1app.applicationcore;
+package se1app.applicationcore.customercomponent;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

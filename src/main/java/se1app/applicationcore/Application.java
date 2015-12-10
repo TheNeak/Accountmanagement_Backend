@@ -4,6 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import se1app.applicationcore.customercomponent.Customer;
+import se1app.applicationcore.customercomponent.CustomerRepository;
+import se1app.applicationcore.reservationcomponent.Reservation;
 
 import java.util.Arrays;
 
@@ -19,6 +22,7 @@ public class Application {
                             Customer customer = new Customer(a);
                             Reservation reservation = new Reservation("Spectre");
                             customer.addReservation(reservation);
+                            reservation.setCustomer(customer);
 
                             customerRepository.save(customer);
                         });
