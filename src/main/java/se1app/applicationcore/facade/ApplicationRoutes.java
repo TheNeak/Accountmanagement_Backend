@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class ApplicationController {
+public class ApplicationRoutes {
 
     @RequestMapping("/login")
     public String login(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {

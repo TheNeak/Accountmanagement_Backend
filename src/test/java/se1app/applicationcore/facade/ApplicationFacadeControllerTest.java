@@ -29,7 +29,7 @@ import java.util.LinkedList;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
 @ActiveProfiles("test")
-public class ApplicationFacadeTest {
+public class ApplicationFacadeControllerTest {
 
     @Autowired
     CustomerRepository repository;
