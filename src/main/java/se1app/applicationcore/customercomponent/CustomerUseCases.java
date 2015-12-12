@@ -9,8 +9,13 @@ import java.util.Optional;
 @Component
 public class CustomerUseCases implements CustomerComponentInterface {
 
-    @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    public CustomerUseCases(CustomerRepository customerRepository)
+    {
+        this.customerRepository = customerRepository;
+    }
 
     public List<Customer> getAllCustomers()
     {

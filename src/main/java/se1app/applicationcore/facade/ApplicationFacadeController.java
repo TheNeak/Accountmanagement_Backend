@@ -3,13 +3,19 @@ package se1app.applicationcore.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import se1app.applicationcore.Application;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerComponentInterface;
+import se1app.applicationcore.customercomponent.CustomerRepository;
+import se1app.applicationcore.customercomponent.CustomerUseCases;
 
 import java.util.List;
 
 @RestController
 class ApplicationFacadeController {
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Autowired
     private CustomerComponentInterface customerComponentInterface;

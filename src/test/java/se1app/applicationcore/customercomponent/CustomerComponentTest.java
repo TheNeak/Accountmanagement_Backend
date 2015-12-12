@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,9 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 public class CustomerComponentTest {
 
-	@Autowired
-    private AutowireCapableBeanFactory beanFactory;
-
     // KEIN Autowired hier!
 	private CustomerComponentInterface customerComponentInterface;
 
@@ -37,12 +33,7 @@ public class CustomerComponentTest {
 		customerRepository.save(customer);
 
         // wir instanziieren unsere Komponente selber, um Mock-Abhängigkeiten zu übergeben
-        customerComponentInterface = new CustomerUseCases();
-        // die restlichen Autowired-Felder der CustomerKomponente müssen von Spring geliefert werden
-        // hier stoßen wir deshalb den Autowiring-Prozess von Hand an
-        // ohne würde es Nullpointerexceptions geben, da die Repositories nicht in der
-        // CustomerKomponente instanziiert werden
-        beanFactory.autowireBean(customerComponentInterface);
+        customerComponentInterface = new CustomerUseCases(customerRepository);
 	}
 
 	@Test

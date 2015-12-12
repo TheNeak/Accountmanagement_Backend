@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import static org.mockito.Mockito.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
@@ -32,7 +31,7 @@ import java.util.LinkedList;
 public class ApplicationFacadeControllerTest {
 
     @Autowired
-    CustomerRepository repository;
+    CustomerRepository customerRepository;
 
     Customer mickey;
     Customer minnie;
@@ -48,8 +47,8 @@ public class ApplicationFacadeControllerTest {
         pluto.addReservation(reservation);
         reservation.setCustomer(pluto);
 
-        repository.deleteAll();
-        repository.save(Arrays.asList(mickey, minnie, pluto));
+        customerRepository.deleteAll();
+        customerRepository.save(Arrays.asList(mickey, minnie, pluto));
     }
 
     @Test
