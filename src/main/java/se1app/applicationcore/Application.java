@@ -10,7 +10,7 @@ import se1app.applicationcore.reservationcomponent.Reservation;
 
 import java.util.Arrays;
 
-@SpringBootApplication
+@SpringBootApplication // add to disable security: (exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
 public class Application {
 
     @Bean
