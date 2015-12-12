@@ -30,4 +30,25 @@ public class Seat {
     public Seat()
     {
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof Seat){
+            Seat toCompare = (Seat) o;
+            return this.id.equals(toCompare.id);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Seat[id=%d, row='%s', number='%s']",
+                id, row, number);
+    }
 }

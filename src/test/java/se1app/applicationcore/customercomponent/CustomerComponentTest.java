@@ -24,6 +24,7 @@ public class CustomerComponentTest {
 	@Autowired
     private AutowireCapableBeanFactory beanFactory;
 
+    // KEIN Autowired hier!
 	private CustomerComponentInterface customerComponentInterface;
 
 	@Autowired
@@ -31,11 +32,16 @@ public class CustomerComponentTest {
 
 	@Before
 	public void setup() {
-		// initialize component testdata
+		// Testdaten für den Komponententest initialisieren
 		Customer customer = new Customer("Heinz");
 		customerRepository.save(customer);
 
+        // wir instanziieren unsere Komponente selber, um Mock-Abhängigkeiten zu übergeben
         customerComponentInterface = new CustomerUseCases();
+        // die restlichen Autowired-Felder der CustomerKomponente müssen von Spring geliefert werden
+        // hier stoßen wir deshalb den Autowiring-Prozess von Hand an
+        // ohne würde es Nullpointerexceptions geben, da die Repositories nicht in der
+        // CustomerKomponente instanziiert werden
         beanFactory.autowireBean(customerComponentInterface);
 	}
 
@@ -45,5 +51,5 @@ public class CustomerComponentTest {
         assertThat(customers).hasSize(1);
     }
 
-    // test of other interface methods (customercomponentinterface) missing!
+    // Hier fehlen die Tests der anderen CustomerComponentInterface-Operationen!!
 }
