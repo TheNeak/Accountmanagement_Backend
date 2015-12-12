@@ -9,7 +9,7 @@ import se1app.applicationcore.customercomponent.CustomerComponentInterface;
 import java.util.List;
 
 @RestController
-class ApplicationFacadeController implements SystemInterface {
+class ApplicationFacadeController {
 
     @Autowired
     private CustomerComponentInterface customerComponentInterface;
