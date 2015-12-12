@@ -27,7 +27,7 @@ import java.util.LinkedList;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
-@WebIntegrationTest("server.port:0")
+@WebIntegrationTest
 @ActiveProfiles("test")
 public class ApplicationFacadeTest {
 
@@ -37,9 +37,6 @@ public class ApplicationFacadeTest {
     Customer mickey;
     Customer minnie;
     Customer pluto;
-
-    @Value("${local.server.port}")
-    int serverPort;
 
     @Before
     public void setUp() {
@@ -53,8 +50,6 @@ public class ApplicationFacadeTest {
 
         repository.deleteAll();
         repository.save(Arrays.asList(mickey, minnie, pluto));
-
-        port = serverPort;
     }
 
     @Test
