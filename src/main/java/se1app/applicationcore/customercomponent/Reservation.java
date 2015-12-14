@@ -1,12 +1,10 @@
-package se1app.applicationcore.reservationcomponent;
+package se1app.applicationcore.customercomponent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import se1app.applicationcore.customercomponent.Customer;
+import se1app.applicationcore.moviecomponent.Movie;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Reservation {
@@ -15,18 +13,16 @@ public class Reservation {
     @GeneratedValue
     private Integer id;
 
-    private String movie;
-
     @JsonIgnore
     @ManyToOne
     private Customer customer;
 
-    @ManyToMany
-    private List<Seat> seats = new ArrayList<>();
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Movie movie;
 
     public Reservation() {}
 
-    public Reservation(String movie)
+    public Reservation(Movie movie)
     {
         this.movie = movie;
     }
@@ -35,7 +31,7 @@ public class Reservation {
         return id;
     }
 
-    public String getMovie() {
+    public Movie getMovie() {
         return movie;
     }
 
@@ -45,11 +41,6 @@ public class Reservation {
 
     public Customer getCustomer() {
         return customer;
-    }
-
-    public void addSeat(Seat seat)
-    {
-        this.seats.add(seat);
     }
 
     @Override
@@ -70,6 +61,6 @@ public class Reservation {
     public String toString() {
         return String.format(
                 "Reservation[id=%d, movie='%s']",
-                id, movie);
+                id, movie.getTitle());
     }
 }

@@ -3,11 +3,11 @@ package se1app.applicationcore.facade;
 import static com.jayway.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.parsing.Parser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.mockito.Mockito.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.WebIntegrationTest;
@@ -18,11 +18,10 @@ import org.springframework.http.HttpStatus;
 import se1app.applicationcore.Application;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.reservationcomponent.Reservation;
+import se1app.applicationcore.customercomponent.Reservation;
+import se1app.applicationcore.moviecomponent.Movie;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.LinkedList;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -31,24 +30,27 @@ import java.util.LinkedList;
 public class ApplicationFacadeControllerTest {
 
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
-    Customer mickey;
-    Customer minnie;
-    Customer pluto;
+    private Customer mickey;
+    private Customer minnie;
+    private Customer pluto;
 
     @Before
     public void setUp() {
+        customerRepository.deleteAll();
 
         mickey = new Customer("Mickey Mouse");
         minnie = new Customer("Minnie Mouse");
         pluto = new Customer("Pluto");
-        Reservation reservation = new Reservation("007");
+        Movie movie007 = new Movie("007");
+        Reservation reservation = new Reservation(movie007);
         pluto.addReservation(reservation);
         reservation.setCustomer(pluto);
 
-        customerRepository.deleteAll();
         customerRepository.save(Arrays.asList(mickey, minnie, pluto));
+
+        RestAssured.defaultParser = Parser.JSON;
     }
 
     @Test
@@ -90,31 +92,5 @@ public class ApplicationFacadeControllerTest {
                 .body(donald)
                 .expect().statusCode(HttpStatus.CREATED.value())
                 .when().post("/customers");
-    }
-
-    @Test
-    public void useMockito() {
-        // mock creation
-        List mockedList = mock(List.class);
-
-        // using mock object - it does not throw any "unexpected interaction" exception
-        mockedList.add("one");
-        mockedList.clear();
-
-        // selective, explicit, highly readable verification
-        verify(mockedList).add("one");
-        verify(mockedList).clear();
-
-        // you can mock concrete classes, not only interfaces
-        LinkedList mockedLinkedList = mock(LinkedList.class);
-
-        // stubbing appears before the actual execution
-        when(mockedLinkedList.get(0)).thenReturn("first");
-
-        // the following prints "first"
-        System.out.println(mockedLinkedList.get(0));
-
-        // the following prints "null" because get(999) was not stubbed
-        System.out.println(mockedLinkedList.get(999));
     }
 }

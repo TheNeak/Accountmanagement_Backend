@@ -1,6 +1,5 @@
 package se1app.applicationcore.customercomponent;
 
-import se1app.applicationcore.reservationcomponent.Reservation;
 import se1app.applicationcore.util.EmailType;
 
 import javax.persistence.*;

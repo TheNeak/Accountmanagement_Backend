@@ -6,26 +6,32 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.reservationcomponent.Reservation;
+import se1app.applicationcore.customercomponent.Reservation;
+import se1app.applicationcore.moviecomponent.Movie;
+import se1app.applicationcore.moviecomponent.MovieRepository;
 
 import java.util.Arrays;
 
-@SpringBootApplication // add to disable security: (exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
+@SpringBootApplication // das Folgende in dieser Zeile hinzufügen, um die Authentifizierung zu deaktivieren: (exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
 public class Application {
 
     @Bean
     CommandLineRunner init(CustomerRepository customerRepository) {
-        return (evt) -> Arrays.asList(
-                "mueller,meier,schulze".split(","))
-                .forEach(
-                        a -> {
-                            Customer customer = new Customer(a);
-                            Reservation reservation = new Reservation("Spectre");
-                            customer.addReservation(reservation);
-                            reservation.setCustomer(customer);
+        return args -> {
+            Customer mickey = new Customer("Mickey Mouse");
+            Customer minnie = new Customer("Minnie Mouse");
+            Customer pluto = new Customer("Pluto");
+            Movie movie007 = new Movie("007");
 
-                            customerRepository.save(customer);
-                        });
+            Reservation reservation = new Reservation(movie007);
+            pluto.addReservation(reservation);
+
+            reservation = new Reservation(movie007);
+            minnie.addReservation(reservation);
+            reservation.setCustomer(minnie);
+
+            customerRepository.save(Arrays.asList(mickey, minnie, pluto));
+        };
     }
 
     public static void main(String[] args) {

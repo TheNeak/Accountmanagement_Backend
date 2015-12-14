@@ -14,6 +14,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<Customer> findByName(String name);
 
     // Hier definieren wir eine eigene SQL-Query (native)
-    @Query(value = "SELECT * FROM CUSTOMER WHERE EXISTS (SELECT * FROM RESERVATION WHERE RESERVATION.CUSTOMER_ID=CUSTOMER.ID AND RESERVATION.MOVIE=:movie)", nativeQuery = true)
+    @Query(value = "SELECT * FROM CUSTOMER WHERE EXISTS (SELECT * FROM RESERVATION, MOVIE WHERE RESERVATION.CUSTOMER_ID=CUSTOMER.ID AND RESERVATION.MOVIE_ID=MOVIE.ID AND MOVIE.TITLE=:movie)", nativeQuery = true)
     List<Customer> findCustomersByMovie(@Param("movie") String movie);
 }

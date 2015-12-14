@@ -4,17 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import se1app.applicationcore.Application;
-import se1app.applicationcore.customercomponent.Customer;
-import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.reservationcomponent.Reservation;
+import se1app.applicationcore.moviecomponent.Movie;
 import se1app.applicationcore.util.EmailType;
 
 import java.util.List;
@@ -31,26 +26,31 @@ public class CustomerRepositoryTest {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	private Movie spectre = new Movie("Spectre");
+
 	@Before
 	public void setup() {
+		Movie goldfinger = new Movie("Goldfinger");
+		Movie minions = new Movie("Minions");
+
 		Customer stefan = new Customer("Stefan", new EmailType("stefan.sarstedt@haw-hamburg.de"));
-		Reservation reservation = new Reservation("Spectre");
+		Reservation reservation = new Reservation(spectre);
 		stefan.addReservation(reservation);
 		reservation.setCustomer(stefan);
-		reservation = new Reservation("Goldfinger");
+		reservation = new Reservation(goldfinger);
 		stefan.addReservation(reservation);
 		reservation.setCustomer(stefan);
 		// Kaskadierendes Speichern der Reservierungen durch entsprechende 'Cascade'-Angabe in Customer!
 		customerRepository.save(stefan);
 
 		Customer ina = new Customer("Ina");
-		reservation = new Reservation("Spectre");
+		reservation = new Reservation(spectre);
 		ina.addReservation(reservation);
 		reservation.setCustomer(ina);
 		customerRepository.save(ina);
 
 		Customer michel = new Customer("Michael");
-		reservation = new Reservation("Minions");
+		reservation = new Reservation(minions);
 		michel.addReservation(reservation);
 		reservation.setCustomer(michel);
 		customerRepository.save(michel);
@@ -72,7 +72,7 @@ public class CustomerRepositoryTest {
 
 	@Test
 	public void testFindByMovie(){
-		List<Customer> customers = customerRepository.findCustomersByMovie("Spectre");
+		List<Customer> customers = customerRepository.findCustomersByMovie(spectre.getTitle());
 		assertThat(customers).hasSize(2);
 
 		// Vergleich aufgrund der (hier technischen - besser fachlichen) IDs der Entitäten

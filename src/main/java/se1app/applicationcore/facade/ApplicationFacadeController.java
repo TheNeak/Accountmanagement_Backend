@@ -3,11 +3,10 @@ package se1app.applicationcore.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import se1app.applicationcore.Application;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerComponentInterface;
-import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.customercomponent.CustomerUseCases;
+import se1app.applicationcore.customercomponent.Reservation;
+import se1app.applicationcore.moviecomponent.MovieComponentInterface;
 
 import java.util.List;
 
@@ -15,10 +14,10 @@ import java.util.List;
 class ApplicationFacadeController {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private CustomerComponentInterface customerComponentInterface;
 
     @Autowired
-    private CustomerComponentInterface customerComponentInterface;
+    private MovieComponentInterface movieComponentInterface;
 
     @RequestMapping("/customers")
     public List<Customer> getAllCustomers()
@@ -42,5 +41,16 @@ class ApplicationFacadeController {
     public Customer addCustomer(@RequestBody Customer customer) {
         customerComponentInterface.addCustomer(customer);
         return customer;
+    }
+
+    @RequestMapping(value = "/customers/{id}/reservations", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addReservation(@PathVariable("id") Integer customerId, @RequestBody Reservation reservation) {
+        customerComponentInterface.addReservation(customerId, reservation);
+    }
+
+    @RequestMapping(value = "/movies/{title}", method = RequestMethod.GET)
+    public Integer getNumberOfReservations(@PathVariable("title") String title) {
+        return movieComponentInterface.getNumberOfReservations(title);
     }
 }

@@ -1,4 +1,4 @@
-package se1app.applicationcore.reservationcomponent;
+package se1app.applicationcore.customercomponent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import se1app.applicationcore.Application;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.reservationcomponent.Reservation;
-import se1app.applicationcore.reservationcomponent.ReservationRepository;
+import se1app.applicationcore.customercomponent.Reservation;
+import se1app.applicationcore.customercomponent.ReservationRepository;
+import se1app.applicationcore.moviecomponent.Movie;
 
 import java.util.List;
 
@@ -29,16 +30,18 @@ public class ReservationRepositoryTest {
     @Autowired
     private CustomerRepository customerRepository;
 
+    private Movie spectre = new Movie("Spectre");
+
     @Before
     public void setup() {
         Customer stefan = new Customer("Stefan");
-        Reservation reservation = new Reservation("Spectre");
+        Reservation reservation = new Reservation(spectre);
         stefan.addReservation(reservation);
         reservation.setCustomer(stefan);
         customerRepository.save(stefan);
 
         Customer ina = new Customer("Ina");
-        reservation = new Reservation("Spectre");
+        reservation = new Reservation(spectre);
         ina.addReservation(reservation);
         reservation.setCustomer(ina);
         customerRepository.save(ina);
@@ -46,7 +49,7 @@ public class ReservationRepositoryTest {
 
     @Test
     public void testFindReservationsByMovie(){
-        List<Reservation> reservations = reservationRepository.findByMovie("Spectre");
+        List<Reservation> reservations = reservationRepository.findByMovie(spectre);
         assertThat(reservations).hasSize(2);
     }
 
@@ -55,7 +58,7 @@ public class ReservationRepositoryTest {
         Customer stefan = customerRepository.findByName("Stefan").get();
         List<Reservation> reservations = reservationRepository.findByCustomer(stefan);
         assertThat(reservations).hasSize(1);
-        assertThat(reservations).extracting(reservation -> reservation.getMovie())
+        assertThat(reservations).extracting(reservation -> reservation.getMovie().getTitle())
                 .contains("Spectre");
     }
 }
