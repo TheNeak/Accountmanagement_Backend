@@ -2,11 +2,14 @@ package se1app.applicationcore.facade;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerComponentInterface;
+import se1app.applicationcore.customercomponent.CustomerNotFoundException;
 import se1app.applicationcore.customercomponent.Reservation;
 import se1app.applicationcore.moviecomponent.MovieComponentInterface;
+import se1app.applicationcore.moviecomponent.MovieNotFoundException;
 
 import java.util.List;
 
@@ -44,13 +47,32 @@ class ApplicationFacadeController {
     }
 
     @RequestMapping(value = "/customers/{id}/reservations", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addReservation(@PathVariable("id") Integer customerId, @RequestBody Reservation reservation) {
-        customerComponentInterface.addReservation(customerId, reservation);
+    public ResponseEntity<?> addReservation(@PathVariable("id") Integer customerId, @RequestBody Reservation reservation) {
+        try {
+            customerComponentInterface.addReservation(customerId, reservation);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+        catch(CustomerNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(value = "/movies/{title}", method = RequestMethod.GET)
-    public Integer getNumberOfReservations(@PathVariable("title") String title) {
-        return movieComponentInterface.getNumberOfReservations(title);
+    public ResponseEntity<?> getNumberOfReservations(@PathVariable("title") String title) {
+        try {
+            int numberOfReservations = movieComponentInterface.getNumberOfReservations(title);
+            return new ResponseEntity<Integer>(numberOfReservations, HttpStatus.OK);
+        }
+        catch(MovieNotFoundException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(Exception ex)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

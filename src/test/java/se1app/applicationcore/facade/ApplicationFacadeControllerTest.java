@@ -94,15 +94,13 @@ public class ApplicationFacadeControllerTest {
     public void canAddReservation() {
         Integer mickeyId = mickey.getId();
 
-        Movie movie007 = new Movie("007");
-        Reservation movieReservation007 = new Reservation(movie007);
-
         when().
                 get("/movies/007").
         then().
-                statusCode(HttpStatus.OK.value()).
-                body(equalTo("0"));
+                statusCode(HttpStatus.NOT_FOUND.value());
 
+        Movie movie007 = new Movie("007");
+        Reservation movieReservation007 = new Reservation(movie007);
         given().
                 contentType("application/json").
                 body(movieReservation007).
@@ -116,5 +114,5 @@ public class ApplicationFacadeControllerTest {
         then().
                 statusCode(HttpStatus.OK.value()).
                 body(equalTo("1"));
-    }
+   }
 }

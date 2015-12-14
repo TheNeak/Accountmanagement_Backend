@@ -6,11 +6,31 @@ import java.util.List;
  * Created by srs on 12.12.15.
  */
 public interface CustomerComponentInterface {
-    // Bei den folgenden Methoden fehlt die Dokumentation
+    /**
+     * Liefert alle Customer.
+     * @return Liste von Customer, leere Liste, falls keine Customer vorhanden.
+     */
     List<Customer> getAllCustomers();
-    void deleteCustomer(Integer customerId);
-    Customer getCustomer(Integer customerId);
-    void addCustomer(Customer customer);
 
-    void addReservation(Integer customerId, Reservation reservationToAdd);
+    /**
+     * Löscht einen Customer.
+     */
+    void deleteCustomer(int positiveCustomerId);
+
+    /**
+     * Sucht einen Customer.
+     */
+    Customer getCustomer(int positiveCustomerId);
+
+    /**
+     * Fügt der Komponente einen Customer hinzu.
+     */
+    void addCustomer(Customer newCustomer);
+
+    /**
+     * Fügt einem Customer eine neue Reservierung hinzu.
+     * @param newReservation neue Reservierung, die hinzugefügt werden soll; muss einen
+     *                       (vorhandenen oder neuen) Film (Movie) enthalten.
+     */
+    void addReservation(int positiveCustomerId, Reservation newReservation) throws CustomerNotFoundException;
 }

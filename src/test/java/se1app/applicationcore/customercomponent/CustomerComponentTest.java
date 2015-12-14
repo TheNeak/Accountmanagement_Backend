@@ -9,14 +9,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import se1app.applicationcore.Application;
-import se1app.applicationcore.moviecomponent.Movie;
-import se1app.applicationcore.moviecomponent.MovieComponentInterface;
-import se1app.applicationcore.moviecomponent.MovieRepository;
-import se1app.applicationcore.moviecomponent.MovieComponent;
+import se1app.applicationcore.moviecomponent.*;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.StrictAssertions.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -53,20 +51,28 @@ public class CustomerComponentTest {
 	}
 
 	@Test
-	public void testGetAllCustomers(){
+	public void testGetAllCustomers() {
         List<Customer> customers = customerComponentInterface.getAllCustomers();
         assertThat(customers).hasSize(1);
     }
 
     @Test
-    public void testAddReservation(){
+    public void testAddReservation() {
         Customer customer = customerComponentInterface.getCustomer(customerHeinzId);
         assertThat(customer).isNotNull();
 
         // hier testen wir, ob der Aufruf an die abhängige Komponente MovieComponent korrekt funktioniert
-        assertThat(movieComponentInterface.getNumberOfReservations(movie007.getTitle())).isEqualTo(0);
-        customerComponentInterface.addReservation(customerHeinzId, new Reservation(movie007));
-        assertThat(movieComponentInterface.getNumberOfReservations(movie007.getTitle())).isEqualTo(1);
+        try {
+            assertThat(movieComponentInterface.getNumberOfReservations(movie007.getTitle())).isEqualTo(0);
+            customerComponentInterface.addReservation(customerHeinzId, new Reservation(movie007));
+            assertThat(movieComponentInterface.getNumberOfReservations(movie007.getTitle())).isEqualTo(1);
+        }
+        catch(CustomerNotFoundException ex) {
+            // kann nicht passieren
+        }
+        catch(MovieNotFoundException ex) {
+            // kann nicht passieren
+        }
     }
 
     // Hier fehlen die Tests der anderen CustomerComponentInterface-Operationen!

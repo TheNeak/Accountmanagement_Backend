@@ -1,15 +1,17 @@
 package se1app.applicationcore.moviecomponent;
 
-import se1app.applicationcore.customercomponent.Customer;
-import se1app.applicationcore.customercomponent.Reservation;
-
-import java.util.List;
-
 /**
  * Created by srs on 12.12.15.
  */
 public interface MovieComponentInterface {
 
-    Integer getNumberOfReservations(String movieTitle);
-    void increaseReservationStatistics(String movieTitle);
+    /**
+     * Liefert die Anzahl der für den gegebenen Film (Titel) getätigten Reservierungen.
+     */
+    int getNumberOfReservations(String movieTitle) throws MovieNotFoundException;
+
+    /**
+     * Erhöht den Reservierungstatistik-Zähler des gegebenen Films (Titel).
+     */
+    void increaseReservationStatistics(String movieTitle) throws MovieNotFoundException;
 }

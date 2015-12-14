@@ -2,11 +2,6 @@ package se1app.applicationcore.moviecomponent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se1app.applicationcore.customercomponent.Customer;
-import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.customercomponent.Reservation;
-
-import java.util.List;
 
 @Component
 public class MovieComponent implements MovieComponentInterface {
@@ -20,18 +15,23 @@ public class MovieComponent implements MovieComponentInterface {
     }
 
     @Override
-    public Integer getNumberOfReservations(String movieTitle) {
+    public int getNumberOfReservations(String movieTitle) throws MovieNotFoundException {
         Movie movie = movieRepository.findByTitle(movieTitle);
         if (movie == null)
         {
-            return 0;
+            throw new MovieNotFoundException(movieTitle);
         }
         return movie.getNumberOfReservations();
     }
 
     @Override
-    public void increaseReservationStatistics(String movieTitle) {
+    public void increaseReservationStatistics(String movieTitle) throws MovieNotFoundException {
         Movie movie = movieRepository.findByTitle(movieTitle);
+        if (movie == null)
+        {
+            throw new MovieNotFoundException(movieTitle);
+        }
+
         movie.increaseReservationStatistics();
         movieRepository.save(movie);
     }

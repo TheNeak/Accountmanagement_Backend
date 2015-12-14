@@ -11,6 +11,8 @@ public class Movie {
     @GeneratedValue
     private Integer id;
 
+    // Der Filmtitel ist unser fachlicher Schlüssel (zusätzlich zum technischen oben)
+    // Deshalb markieren wir ihn für JPA mit Unique
     @Column(unique=true)
     private String title;
 
