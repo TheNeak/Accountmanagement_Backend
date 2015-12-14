@@ -8,7 +8,6 @@ import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerRepository;
 import se1app.applicationcore.customercomponent.Reservation;
 import se1app.applicationcore.moviecomponent.Movie;
-import se1app.applicationcore.moviecomponent.MovieRepository;
 
 import java.util.Arrays;
 
@@ -18,18 +17,9 @@ public class Application {
     @Bean
     CommandLineRunner init(CustomerRepository customerRepository) {
         return args -> {
-            Customer mickey = new Customer("Mickey Mouse");
-            Customer minnie = new Customer("Minnie Mouse");
-            Customer pluto = new Customer("Pluto");
-            Movie movie007 = new Movie("007");
-
-            Reservation reservation = new Reservation(movie007);
-            pluto.addReservation(reservation);
-
-            reservation = new Reservation(movie007);
-            minnie.addReservation(reservation);
-            reservation.setCustomer(minnie);
-
+            Customer mickey = new Customer("Mueller");
+            Customer minnie = new Customer("Meier");
+            Customer pluto = new Customer("Schulze");
             customerRepository.save(Arrays.asList(mickey, minnie, pluto));
         };
     }

@@ -60,7 +60,7 @@ public class Reservation {
     @Override
     public String toString() {
         return String.format(
-                "Reservation[id=%d, movie='%s']",
-                id, movie.getTitle());
+                "Reservation[id=%d]",
+                id);
     }
 }

@@ -22,6 +22,10 @@ public class MovieComponent implements MovieComponentInterface {
     @Override
     public Integer getNumberOfReservations(String movieTitle) {
         Movie movie = movieRepository.findByTitle(movieTitle);
+        if (movie == null)
+        {
+            return 0;
+        }
         return movie.getNumberOfReservations();
     }
 

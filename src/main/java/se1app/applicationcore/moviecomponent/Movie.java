@@ -14,7 +14,7 @@ public class Movie {
     @Column(unique=true)
     private String title;
 
-    private Integer numberOfReservations = 0;
+    private Integer numberOfReservations;
 
     public Movie()
     {
@@ -23,6 +23,7 @@ public class Movie {
     public Movie(String title)
     {
         this.title = title;
+        this.numberOfReservations = 0;
     }
 
     public Integer getId() {

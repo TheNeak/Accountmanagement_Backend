@@ -43,14 +43,7 @@ public class ApplicationFacadeControllerTest {
         mickey = new Customer("Mickey Mouse");
         minnie = new Customer("Minnie Mouse");
         pluto = new Customer("Pluto");
-        Movie movie007 = new Movie("007");
-        Reservation reservation = new Reservation(movie007);
-        pluto.addReservation(reservation);
-        reservation.setCustomer(pluto);
-
         customerRepository.save(Arrays.asList(mickey, minnie, pluto));
-
-        RestAssured.defaultParser = Parser.JSON;
     }
 
     @Test
@@ -59,7 +52,7 @@ public class ApplicationFacadeControllerTest {
 
         when().
                 get("/customers/{id}", mickeyId).
-                then().
+        then().
                 statusCode(HttpStatus.OK.value()).
                 body("name", is("Mickey Mouse")).
                 body("id", is(mickeyId));
@@ -69,7 +62,7 @@ public class ApplicationFacadeControllerTest {
     public void canFetchAll() {
         when().
                 get("/customers").
-                then().
+        then().
                 statusCode(HttpStatus.OK.value()).
                 body("name", hasItems("Mickey Mouse", "Minnie Mouse", "Pluto"));
     }
@@ -78,9 +71,9 @@ public class ApplicationFacadeControllerTest {
     public void canDeletePluto() {
         Integer plutoId = pluto.getId();
 
-        when()
-                .delete("/customers/{id}", plutoId).
-                then().
+        when().
+                delete("/customers/{id}", plutoId).
+        then().
                 statusCode(HttpStatus.NO_CONTENT.value());
     }
 
@@ -88,9 +81,40 @@ public class ApplicationFacadeControllerTest {
     public void canSaveDonald() {
         Customer donald = new Customer("Donald Duck");
 
-        given().contentType("application/json")
-                .body(donald)
-                .expect().statusCode(HttpStatus.CREATED.value())
-                .when().post("/customers");
+        given().
+                contentType("application/json").
+                body(donald).
+        expect().
+                statusCode(HttpStatus.CREATED.value()).
+        when().
+                post("/customers");
+    }
+
+    @Test
+    public void canAddReservation() {
+        Integer mickeyId = mickey.getId();
+
+        Movie movie007 = new Movie("007");
+        Reservation movieReservation007 = new Reservation(movie007);
+
+        when().
+                get("/movies/007").
+        then().
+                statusCode(HttpStatus.OK.value()).
+                body(equalTo("0"));
+
+        given().
+                contentType("application/json").
+                body(movieReservation007).
+        expect().
+                statusCode(HttpStatus.CREATED.value()).
+        when().
+                post("/customers/{id}/reservations", mickeyId);
+
+        when().
+                get("/movies/007").
+        then().
+                statusCode(HttpStatus.OK.value()).
+                body(equalTo("1"));
     }
 }
