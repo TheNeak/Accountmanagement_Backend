@@ -1,10 +1,8 @@
 package se1app.applicationcore.facade;
 
-import static com.jayway.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.*;
 
-import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.parsing.Parser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

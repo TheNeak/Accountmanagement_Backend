@@ -14,7 +14,6 @@ import se1app.applicationcore.moviecomponent.*;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.StrictAssertions.fail;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
