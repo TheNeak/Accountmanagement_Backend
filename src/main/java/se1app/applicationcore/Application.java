@@ -6,12 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.customercomponent.Reservation;
-import se1app.applicationcore.moviecomponent.Movie;
 
 import java.util.Arrays;
 
-@SpringBootApplication // das Folgende in dieser Zeile hinzufügen, um die Authentifizierung zu deaktivieren: (exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
+@SpringBootApplication
 public class Application {
 
     @Bean
