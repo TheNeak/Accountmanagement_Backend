@@ -10,5 +10,5 @@ public interface AccountComponentInterface {
      */
     int getMoneyOfAccount(Integer accountNr) throws AccountNotFoundException;
 
-    void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoenyException;
+    void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException;
 }

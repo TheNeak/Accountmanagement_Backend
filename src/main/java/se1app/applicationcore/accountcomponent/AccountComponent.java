@@ -24,7 +24,7 @@ public class AccountComponent implements AccountComponentInterface {
     }
 
     @Override
-    public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoenyException {
+    public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException {
         Account sourceAccount = accountRepository.findByNr(sourceAccountNr);
         Account targetAccount = accountRepository.findByNr(targetAccountNr);
         if (sourceAccount == null) {
@@ -34,7 +34,7 @@ public class AccountComponent implements AccountComponentInterface {
             throw new AccountNotFoundException(targetAccountNr);
         }
         if (sourceAccount.getMoney() < money) {
-            throw new AccountIsLowOnMoenyException(sourceAccountNr);
+            throw new AccountIsLowOnMoneyException(sourceAccountNr);
         }
         Integer sourceMoney = sourceAccount.getMoney();
         Integer targetMoney = targetAccount.getMoney();

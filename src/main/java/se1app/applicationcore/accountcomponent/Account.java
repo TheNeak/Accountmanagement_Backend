@@ -14,7 +14,7 @@ public class Account {
     private Integer id;
 
     @Column(unique=true)
-    private Integer nr;
+    private Integer nr; //TODO Kontotyp
 
     private Integer money;
 
