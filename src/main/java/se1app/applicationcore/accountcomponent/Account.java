@@ -1,8 +1,9 @@
 package se1app.applicationcore.accountcomponent;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.CascadeType;
+import se1app.applicationcore.officecomponent.Office;
+
+import javax.persistence.*;
 
 /**
  * Created by Neak on 03.12.2016.
@@ -17,13 +18,29 @@ public class Account {
 
     private Integer money;
 
-    public Account()
+    @ManyToOne
+    private Office office;
+
+    @OneToMany
+    private BookingPosition bookingPosition;
+
+    public Account(Office office)
     {
+        this.office = office;
     }
-    public Account(Integer nr, Integer money)
+    public Account(Integer nr, Integer money, Office office)
     {
         this.nr = nr;
         this.money = money;
+        this.office = office;
+    }
+
+    public Office getOffice() {
+        return office;
+    }
+
+    public void setOffice(Office office) {
+        this.office = office;
     }
 
     public Integer getId() {
@@ -59,7 +76,8 @@ public class Account {
 
         if (id != null ? !id.equals(account.id) : account.id != null) return false;
         if (nr != null ? !nr.equals(account.nr) : account.nr != null) return false;
-        return money != null ? money.equals(account.money) : account.money == null;
+        if (money != null ? !money.equals(account.money) : account.money != null) return false;
+        return office != null ? office.equals(account.office) : account.office == null;
     }
 
     @Override
@@ -67,6 +85,7 @@ public class Account {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (nr != null ? nr.hashCode() : 0);
         result = 31 * result + (money != null ? money.hashCode() : 0);
+        result = 31 * result + (office != null ? office.hashCode() : 0);
         return result;
     }
 
@@ -76,6 +95,7 @@ public class Account {
                 "id=" + id +
                 ", nr=" + nr +
                 ", money=" + money +
+                ", office=" + office +
                 '}';
     }
 }
