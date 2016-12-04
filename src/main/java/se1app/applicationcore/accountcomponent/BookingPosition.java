@@ -19,4 +19,8 @@ public class BookingPosition {
     public BookingPosition(Integer bookedMoney) {
         this.bookedMoney = bookedMoney;
     }
+
+    public Integer getBookedMoney() {
+        return bookedMoney;
+    }
 }

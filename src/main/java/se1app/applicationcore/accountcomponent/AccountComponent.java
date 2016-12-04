@@ -36,11 +36,9 @@ public class AccountComponent implements AccountComponentInterface {
         if (sourceAccount.getMoney() < money) {
             throw new AccountIsLowOnMoneyException(sourceAccountNr);
         }
-        Integer sourceMoney = sourceAccount.getMoney();
-        Integer targetMoney = targetAccount.getMoney();
-        sourceAccount.setMoney(sourceMoney - money);
-        targetAccount.setMoney(targetMoney + money);
-
+        sourceAccount.book(-money);
+        targetAccount.book(money);
+        sourceAccount.getOffice().increaseReservationStatistics();
     }
 
 }

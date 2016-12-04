@@ -1,5 +1,8 @@
 package se1app.applicationcore.accountcomponent;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import se1app.applicationcore.util.AccountNumberType;
+
 /**
  * Created by Neak on 04.12.2016.
  */
@@ -24,6 +27,12 @@ Optional:
 KontoNichtGefundenException implementieren. */
 
 public class AccountUseCase {
+
+    @Autowired
+    private AccountNumberType accountNumberType;
+
+    @Autowired
+    private AccountRepository accountRepository;
 
 
 

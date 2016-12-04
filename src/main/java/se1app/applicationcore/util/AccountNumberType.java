@@ -1,4 +1,4 @@
-package se1app.applicationcore.accountcomponent;
+package se1app.applicationcore.util;
 
 import java.io.Serializable;
 

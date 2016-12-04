@@ -1,9 +1,9 @@
 package se1app.applicationcore.accountcomponent;
 
-import org.hibernate.annotations.CascadeType;
 import se1app.applicationcore.officecomponent.Office;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Neak on 03.12.2016.
@@ -21,15 +21,13 @@ public class Account {
     @ManyToOne
     private Office office;
 
-    @OneToMany
-    private BookingPosition bookingPosition;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<BookingPosition> bookingPositions;
 
-    public Account(Office office)
-    {
+    public Account(Office office) {
         this.office = office;
     }
-    public Account(Integer nr, Integer money, Office office)
-    {
+    public Account(Integer nr, Integer money, Office office) {
         this.nr = nr;
         this.money = money;
         this.office = office;
@@ -43,28 +41,21 @@ public class Account {
         this.office = office;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getNr() {
         return nr;
     }
 
-    public void setNr(Integer nr) {
-        this.nr = nr;
-    }
-
     public Integer getMoney() {
+        int money=0;
+        for (BookingPosition bookingPosition : bookingPositions){
+            money += bookingPosition.getBookedMoney();
+        }
         return money;
     }
 
-    public void setMoney(Integer money) {
-        this.money = money;
+    public void book(Integer amount){
+        bookingPositions.add(new BookingPosition(amount));
+        this.money+=amount;
     }
 
     @Override
