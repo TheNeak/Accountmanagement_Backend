@@ -9,4 +9,6 @@ public interface AccountComponentInterface {
      * Liefert den Kontostand der für den gegebenen Account (ID) getätigten Reservierungen.
      */
     int getMoneyOfAccount(Integer accountNr) throws AccountNotFoundException;
+
+    void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoenyException;
 }
