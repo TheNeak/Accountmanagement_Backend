@@ -21,7 +21,7 @@ public class Office {
     public Office() {
     }
 
-    public Office(String title) {
+    public Office(Integer nr) {
         this.nr = nr;
         this.numberOfReservations = 0;
     }

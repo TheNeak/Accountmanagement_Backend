@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class AccountComponent implements AccountComponentInterface {
 
+    // Autowired by Constructor!
     private AccountRepository accountRepository;
+
+    private AccountComponentInterface accountComponentInterface;
 
     @Autowired
     public AccountComponent(AccountRepository accountRepository) {
@@ -23,22 +26,9 @@ public class AccountComponent implements AccountComponentInterface {
         return acc.getMoney();
     }
 
-    @Override
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException {
-        Account sourceAccount = accountRepository.findByAccountNr(sourceAccountNr);
-        Account targetAccount = accountRepository.findByAccountNr(targetAccountNr);
-        if (sourceAccount == null) {
-            throw new AccountNotFoundException(sourceAccountNr);
-        }
-        if (targetAccount == null) {
-            throw new AccountNotFoundException(targetAccountNr);
-        }
-        if (sourceAccount.getMoney() < money) {
-            throw new AccountIsLowOnMoneyException(sourceAccountNr);
-        }
-        sourceAccount.book(-money);
-        targetAccount.book(money);
-        sourceAccount.getOffice().increaseReservationStatistics();
+        accountComponentInterface = new AccountComponent(accountRepository);
+        accountComponentInterface.transferMoney(sourceAccountNr, targetAccountNr, money);
     }
 
 }

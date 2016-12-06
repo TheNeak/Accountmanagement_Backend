@@ -27,13 +27,9 @@ public class Account {
 
     public Account() {
     }
-    public Account(Office office) {
-        this.office = office;
-    }
 
-    public Account(Integer accountNr, Integer money, Office office) {
+    public Account(Integer accountNr, Office office) {
         this.accountNr = accountNr;
-        this.money = money;
         this.office = office;
     }
 

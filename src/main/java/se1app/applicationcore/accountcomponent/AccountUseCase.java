@@ -11,11 +11,21 @@ public class AccountUseCase implements AccountUseCaseInterface {
     @Autowired
     private AccountRepository accountRepository;
 
-    private AccountComponentInterface accountComponentInterface;
-
-    public void transfer(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException {
-        accountComponentInterface = new AccountComponent(accountRepository);
-        accountComponentInterface.transferMoney(sourceAccountNr, targetAccountNr, money);
+    @Override
+    public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException {
+        Account sourceAccount = accountRepository.findByAccountNr(sourceAccountNr);
+        Account targetAccount = accountRepository.findByAccountNr(targetAccountNr);
+        if (sourceAccount == null) {
+            throw new AccountNotFoundException(sourceAccountNr);
+        }
+        if (targetAccount == null) {
+            throw new AccountNotFoundException(targetAccountNr);
+        }
+        if (sourceAccount.getMoney() < money) {
+            throw new AccountIsLowOnMoneyException(sourceAccountNr);
+        }
+        sourceAccount.book(-money);
+        targetAccount.book(money);
+        sourceAccount.getOffice().increaseReservationStatistics();
     }
-
 }
