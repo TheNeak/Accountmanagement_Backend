@@ -31,25 +31,34 @@ public class AccountRepositoryTest {
     @Autowired
     OfficeRepository officeRepository;
 
-    private Account acc01;
-    private Office office;
-
+    private Account acc01, acc02;
+    private Office office1, office2;
 
     @Before
     public void setUp() throws Exception {
-        office = new Office(1);
-        officeRepository.save(office);
-        acc01 = new Account(1, office);
+        office1 = new Office(1);
+        office2 = new Office(2);
+        officeRepository.save(office1);
+        officeRepository.save(office2);
+        acc01 = new Account(1, office1);
+        acc02 = new Account(2, office2);
         accountRepository.save(acc01);
+        accountRepository.save(acc02);
     }
 
     @Test
     public void findAll() throws Exception {
-        accountRepository.findByAccountNr(1);
         List<Account> accounts = accountRepository.findAll();
-        assertThat(accounts).hasSize(1);
+        assertThat(accounts).hasSize(2);
         assertThat(accounts).extracting(Account::getAccountNr).contains(1);
+        assertThat(accounts).extracting(Account::getAccountNr).contains(2);
         assertThat(accounts).extracting(account -> account.getOffice().getNr()).contains(1);
+        assertThat(accounts).extracting(account -> account.getOffice().getNr()).contains(2);
     }
 
+    @Test
+    public void findByAccountNrTest() throws Exception {
+        Account account = accountRepository.findByAccountNr(1);
+        assertThat(account).isEqualTo(acc01);
+    }
 }
