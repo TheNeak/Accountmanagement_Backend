@@ -47,7 +47,7 @@ public class AccountRepositoryTest {
     }
 
     @Test
-    public void findAll() throws Exception {
+    public void findAllTest() throws Exception {
         List<Account> accounts = accountRepository.findAll();
         assertThat(accounts).hasSize(2);
         assertThat(accounts).extracting(Account::getAccountNr).contains(1);

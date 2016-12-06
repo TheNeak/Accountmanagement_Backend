@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se1app.applicationcore.accountcomponent.AccountComponentInterface;
 import se1app.applicationcore.customercomponent.Customer;
 import se1app.applicationcore.customercomponent.CustomerComponentInterface;
 import se1app.applicationcore.customercomponent.CustomerNotFoundException;
@@ -21,6 +22,11 @@ class ApplicationFacadeController {
 
     @Autowired
     private MovieComponentInterface movieComponentInterface;
+
+    @Autowired
+    private AccountComponentInterface accountComponentInterface;
+
+    // TODO REST für AccountComp
 
     @RequestMapping("/customers")
     public List<Customer> getAllCustomers()
