@@ -12,20 +12,20 @@ public class AccountUseCase implements AccountUseCaseInterface {
     private AccountRepository accountRepository;
 
     @Override
-    public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException {
-        Account sourceAccount = accountRepository.findByAccountNr(sourceAccountNr);
-        Account targetAccount = accountRepository.findByAccountNr(targetAccountNr);
-        if (sourceAccount == null) {
-            throw new AccountNotFoundException(sourceAccountNr);
+    public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
+        BankAccount sourceBankAccount = accountRepository.findByAccountNr(sourceAccountNr);
+        BankAccount targetBankAccount = accountRepository.findByAccountNr(targetAccountNr);
+        if (sourceBankAccount == null) {
+            throw new BankAccountNotFoundException(sourceAccountNr);
         }
-        if (targetAccount == null) {
-            throw new AccountNotFoundException(targetAccountNr);
+        if (targetBankAccount == null) {
+            throw new BankAccountNotFoundException(targetAccountNr);
         }
-        if (sourceAccount.getMoney() < money) {
-            throw new AccountIsLowOnMoneyException(sourceAccountNr);
+        if (sourceBankAccount.getMoney() < money) {
+            throw new BankAccountIsLowOnMoneyException(sourceAccountNr);
         }
-        sourceAccount.book(-money);
-        targetAccount.book(money);
-        sourceAccount.getOffice().increaseReservationStatistics();
+        sourceBankAccount.book(-money);
+        targetBankAccount.book(money);
+        sourceBankAccount.getBank().increaseReservationStatistics();
     }
 }

@@ -6,6 +6,6 @@ package se1app.applicationcore.accountcomponent;
  */
 public interface AccountUseCaseInterface {
 
-    public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException;
+    public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException;
 
 }

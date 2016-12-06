@@ -1,13 +1,13 @@
-package se1app.applicationcore.officecomponent;
+package se1app.applicationcore.bankcomponent;
 
 /**
  * Created by Neak on 04.12.2016.
  *
  */
-public class OfficeNotFoundException extends Exception {
+public class BankNotFoundException extends Exception {
     private static final long serialVersionUID = 5234151235599771228L;
 
-    public OfficeNotFoundException(Integer officeNr){
+    public BankNotFoundException(Integer officeNr) {
         super("office with nr " + officeNr + " was not found");
     }
 }

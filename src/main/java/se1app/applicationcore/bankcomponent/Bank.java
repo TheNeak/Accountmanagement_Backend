@@ -1,4 +1,4 @@
-package se1app.applicationcore.officecomponent;
+package se1app.applicationcore.bankcomponent;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.Id;
  * Created by Neak on 03.12.2016.
  */
 @Entity
-public class Office {
+public class Bank {
 
     @Id
     @GeneratedValue
@@ -18,10 +18,10 @@ public class Office {
 
     private Integer numberOfReservations;
 
-    public Office() {
+    public Bank() {
     }
 
-    public Office(Integer nr) {
+    public Bank(Integer nr) {
         this.nr = nr;
         this.numberOfReservations = 0;
     }
@@ -55,11 +55,11 @@ public class Office {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Office office = (Office) o;
+        Bank bank = (Bank) o;
 
-        if (id != null ? !id.equals(office.id) : office.id != null) return false;
-        if (nr != null ? !nr.equals(office.nr) : office.nr != null) return false;
-        return numberOfReservations != null ? numberOfReservations.equals(office.numberOfReservations) : office.numberOfReservations == null;
+        if (id != null ? !id.equals(bank.id) : bank.id != null) return false;
+        if (nr != null ? !nr.equals(bank.nr) : bank.nr != null) return false;
+        return numberOfReservations != null ? numberOfReservations.equals(bank.numberOfReservations) : bank.numberOfReservations == null;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class Office {
 
     @Override
     public String toString() {
-        return "Office{" +
+        return "Bank{" +
                 "id=" + id +
                 ", nr=" + nr +
                 ", numberOfReservations=" + numberOfReservations +
