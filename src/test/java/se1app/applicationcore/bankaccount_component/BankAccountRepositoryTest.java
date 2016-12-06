@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 @ContextConfiguration(classes = Application.class)
 @ActiveProfiles("test")
-public class BankBankAccountRepositoryTest {
+public class BankAccountRepositoryTest {
 
     @Autowired
     BankAccountRepository bankAccountRepository;
