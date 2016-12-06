@@ -1,25 +1,25 @@
 package se1app.applicationcore.facade;
 
-import static org.hamcrest.Matchers.*;
-import static io.restassured.RestAssured.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.http.HttpStatus;
 import se1app.applicationcore.Application;
-import se1app.applicationcore.customercomponent.Customer;
-import se1app.applicationcore.customercomponent.CustomerRepository;
-import se1app.applicationcore.customercomponent.Reservation;
-import se1app.applicationcore.moviecomponent.Movie;
+import se1app.applicationcore.customer_component.Customer;
+import se1app.applicationcore.customer_component.CustomerRepository;
+import se1app.applicationcore.customer_component.Reservation;
+import se1app.applicationcore.movie_component.Movie;
 
 import java.util.Arrays;
+
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)

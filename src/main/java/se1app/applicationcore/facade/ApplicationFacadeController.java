@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se1app.applicationcore.accountcomponent.BankAccountComponentInterface;
-import se1app.applicationcore.customercomponent.Customer;
-import se1app.applicationcore.customercomponent.CustomerComponentInterface;
-import se1app.applicationcore.customercomponent.CustomerNotFoundException;
-import se1app.applicationcore.customercomponent.Reservation;
-import se1app.applicationcore.moviecomponent.MovieComponentInterface;
-import se1app.applicationcore.moviecomponent.MovieNotFoundException;
+import se1app.applicationcore.bankaccount_component.BankAccountComponentInterface;
+import se1app.applicationcore.customer_component.Customer;
+import se1app.applicationcore.customer_component.CustomerComponentInterface;
+import se1app.applicationcore.customer_component.CustomerNotFoundException;
+import se1app.applicationcore.customer_component.Reservation;
+import se1app.applicationcore.movie_component.MovieComponentInterface;
+import se1app.applicationcore.movie_component.MovieNotFoundException;
 
 import java.util.List;
 

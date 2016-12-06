@@ -4,8 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import se1app.applicationcore.customercomponent.Customer;
-import se1app.applicationcore.customercomponent.CustomerRepository;
+import se1app.applicationcore.customer_component.Customer;
+import se1app.applicationcore.customer_component.CustomerRepository;
 
 import java.util.Arrays;
 
