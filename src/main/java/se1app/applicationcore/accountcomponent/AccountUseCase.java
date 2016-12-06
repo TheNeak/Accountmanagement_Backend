@@ -34,6 +34,13 @@ public class AccountUseCase {
     @Autowired
     private AccountRepository accountRepository;
 
+    private AccountComponentInterface accountComponentInterface;
+
+    public void transfer(Integer sour, Integer tar, Integer mon) throws AccountNotFoundException, AccountIsLowOnMoneyException {
+        accountComponentInterface = new AccountComponent(accountRepository);
+        accountComponentInterface.transferMoney(sour, tar, mon);
+    }
+
 
 
 }

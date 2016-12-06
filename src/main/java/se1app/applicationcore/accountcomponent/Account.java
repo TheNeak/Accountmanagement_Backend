@@ -8,13 +8,14 @@ import java.util.List;
 /**
  * Created by Neak on 03.12.2016.
  */
+@Entity
 public class Account {
     @Id
     @GeneratedValue
     private Integer id;
 
     @Column(unique=true)
-    private Integer nr; //TODO Kontotyp
+    private Integer accountNr;
 
     private Integer money;
 
@@ -24,11 +25,14 @@ public class Account {
     @OneToMany(cascade = CascadeType.ALL)
     private List<BookingPosition> bookingPositions;
 
+    public Account() {
+    }
     public Account(Office office) {
         this.office = office;
     }
-    public Account(Integer nr, Integer money, Office office) {
-        this.nr = nr;
+
+    public Account(Integer accountNr, Integer money, Office office) {
+        this.accountNr = accountNr;
         this.money = money;
         this.office = office;
     }
@@ -41,8 +45,8 @@ public class Account {
         this.office = office;
     }
 
-    public Integer getNr() {
-        return nr;
+    public Integer getAccountNr() {
+        return accountNr;
     }
 
     public Integer getMoney() {
@@ -55,7 +59,7 @@ public class Account {
 
     public void book(Integer amount){
         bookingPositions.add(new BookingPosition(amount));
-        this.money+=amount;
+        this.money += amount;
     }
 
     @Override
@@ -66,7 +70,7 @@ public class Account {
         Account account = (Account) o;
 
         if (id != null ? !id.equals(account.id) : account.id != null) return false;
-        if (nr != null ? !nr.equals(account.nr) : account.nr != null) return false;
+        if (accountNr != null ? !accountNr.equals(account.accountNr) : account.accountNr != null) return false;
         if (money != null ? !money.equals(account.money) : account.money != null) return false;
         return office != null ? office.equals(account.office) : account.office == null;
     }
@@ -74,7 +78,7 @@ public class Account {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (nr != null ? nr.hashCode() : 0);
+        result = 31 * result + (accountNr != null ? accountNr.hashCode() : 0);
         result = 31 * result + (money != null ? money.hashCode() : 0);
         result = 31 * result + (office != null ? office.hashCode() : 0);
         return result;
@@ -84,7 +88,7 @@ public class Account {
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", nr=" + nr +
+                ", accountNr=" + accountNr +
                 ", money=" + money +
                 ", office=" + office +
                 '}';

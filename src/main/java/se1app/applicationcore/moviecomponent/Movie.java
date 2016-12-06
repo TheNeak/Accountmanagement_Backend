@@ -1,6 +1,9 @@
 package se1app.applicationcore.moviecomponent;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by srs on 08.12.15.
@@ -18,12 +21,10 @@ public class Movie {
 
     private Integer numberOfReservations;
 
-    public Movie()
-    {
+    public Movie() {
     }
 
-    public Movie(String title)
-    {
+    public Movie(String title) {
         this.title = title;
         this.numberOfReservations = 0;
     }

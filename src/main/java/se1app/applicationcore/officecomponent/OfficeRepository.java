@@ -7,7 +7,7 @@ import se1app.applicationcore.accountcomponent.Account;
 /**
  * Created by Neak on 03.12.2016.
  */
-    @Repository
-    public interface OfficeRepository extends JpaRepository<Account, Integer> {
-    Office findByNr(Integer officeNr);
+@Repository
+public interface OfficeRepository extends JpaRepository<Account, Integer> {
+    Office findByOfficeNr(Integer officeNr);
 }

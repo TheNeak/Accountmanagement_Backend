@@ -17,7 +17,7 @@ public class OfficeComponent implements OfficeComponentInterface{
 
     @Override
     public int getNumberOfReservations(Integer officeNr) throws OfficeNotFoundException {
-        Office office = officeRepository.findByNr(officeNr);
+        Office office = officeRepository.findByOfficeNr(officeNr);
         if (office == null)
         {
             throw new OfficeNotFoundException(officeNr);

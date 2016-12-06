@@ -1,32 +1,28 @@
 package se1app.applicationcore.officecomponent;
 
-import org.springframework.data.annotation.Id;
-
-import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * Created by Neak on 03.12.2016.
  */
+@Entity
 public class Office {
+
     @Id
     @GeneratedValue
     private Integer id;
 
-    // Der Filmtitel ist unser fachlicher Schlüssel (zusätzlich zum technischen oben)
-    // Deshalb markieren wir ihn für JPA mit Unique
-    @Column(unique=true)
-    private Integer officeNr;
+    private Integer nr;
 
     private Integer numberOfReservations;
 
-    public Office()
-    {
+    public Office() {
     }
 
-    public Office(String title)
-    {
-        this.officeNr = officeNr;
+    public Office(String title) {
+        this.nr = nr;
         this.numberOfReservations = 0;
     }
 
@@ -34,22 +30,18 @@ public class Office {
         return id;
     }
 
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Integer getNr() {
+        return nr;
     }
 
-    public Integer getOfficeNr() {
-        return officeNr;
-    }
-
-    public void setOfficeNr(Integer officeNr) {
-        this.officeNr = officeNr;
+    public void setNr(Integer nr) {
+        this.nr = nr;
     }
 
     public void setNumberOfReservations(Integer numberOfReservations) {
         this.numberOfReservations = numberOfReservations;
     }
+
     public Integer getNumberOfReservations() {
         return numberOfReservations;
     }
@@ -66,14 +58,14 @@ public class Office {
         Office office = (Office) o;
 
         if (id != null ? !id.equals(office.id) : office.id != null) return false;
-        if (officeNr != null ? !officeNr.equals(office.officeNr) : office.officeNr != null) return false;
+        if (nr != null ? !nr.equals(office.nr) : office.nr != null) return false;
         return numberOfReservations != null ? numberOfReservations.equals(office.numberOfReservations) : office.numberOfReservations == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (officeNr != null ? officeNr.hashCode() : 0);
+        result = 31 * result + (nr != null ? nr.hashCode() : 0);
         result = 31 * result + (numberOfReservations != null ? numberOfReservations.hashCode() : 0);
         return result;
     }
@@ -82,7 +74,7 @@ public class Office {
     public String toString() {
         return "Office{" +
                 "id=" + id +
-                ", officeNr=" + officeNr +
+                ", nr=" + nr +
                 ", numberOfReservations=" + numberOfReservations +
                 '}';
     }
