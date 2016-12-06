@@ -1,10 +1,38 @@
 package se1app.applicationcore.bankaccount_component;
 
+import java.util.List;
+
 /**
  * Created by Neak on 03.12.2016.
  */
 public interface BankAccountComponentInterface {
 
+    /**
+     * Liefert alle BankAccount.
+     *
+     * @return Liste von Customer, leere Liste, falls keine BankAccount vorhanden.
+     */
+    List<BankAccount> getAllBankAccounts();
+
+    /**
+     * Löscht einen BankAccount.
+     */
+    void deleteBankAccount(int positiveBankAccountId);
+
+    /**
+     * Löscht einen BankAccount.
+     */
+    void deleteBankAccount(BankAccount bankAccount);
+
+    /**
+     * Sucht einen BankAccount.
+     */
+    BankAccount getBankAccount(int positiveBankAccountId);
+
+    /**
+     * Fügt der Komponente einen BankAccount hinzu.
+     */
+    void addBankAccount(BankAccount bankAccount);
 
 
     /**

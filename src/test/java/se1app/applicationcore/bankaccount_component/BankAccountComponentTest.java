@@ -43,7 +43,7 @@ public class BankAccountComponentTest {
         bankAccountRepository.save(targetBankAccount);
 
         // wir instanziieren unsere Komponente selber, um Mock-Abhängigkeiten zu übergeben
-        testObject = new BankBankAccountComponent(bankAccountRepository);
+        testObject = new BankAccountComponent(bankAccountRepository);
     }
 
     @Test
