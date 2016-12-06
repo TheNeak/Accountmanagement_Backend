@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Neak on 04.12.2016.
+ *
  */
 public class AccountUseCase implements AccountUseCaseInterface {
 
@@ -12,9 +13,9 @@ public class AccountUseCase implements AccountUseCaseInterface {
 
     private AccountComponentInterface accountComponentInterface;
 
-    public void transfer(Integer sour, Integer tar, Integer mon) throws AccountNotFoundException, AccountIsLowOnMoneyException {
+    public void transfer(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws AccountNotFoundException, AccountIsLowOnMoneyException {
         accountComponentInterface = new AccountComponent(accountRepository);
-        accountComponentInterface.transferMoney(sour, tar, mon);
+        accountComponentInterface.transferMoney(sourceAccountNr, targetAccountNr, money);
     }
 
 }
