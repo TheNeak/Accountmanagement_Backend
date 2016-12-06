@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class BankBankAccountComponent implements BankAccountComponentInterface {
 
     // Autowired by Constructor!
-    private AccountRepository accountRepository;
+    private BankAccountRepository bankAccountRepository;
 
     private BankAccountComponentInterface bankAccountComponentInterface;
 
@@ -18,13 +18,13 @@ public class BankBankAccountComponent implements BankAccountComponentInterface {
 
 
     @Autowired
-    public BankBankAccountComponent(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
+    public BankBankAccountComponent(BankAccountRepository bankAccountRepository) {
+        this.bankAccountRepository = bankAccountRepository;
     }
 
     @Override
     public int getMoneyOfAccount(Integer accountNr) throws BankAccountNotFoundException {
-        BankAccount acc = accountRepository.findByAccountNr(accountNr);
+        BankAccount acc = bankAccountRepository.findByAccountNr(accountNr);
         if (acc == null) {
             throw new BankAccountNotFoundException(accountNr);
         }
@@ -32,7 +32,7 @@ public class BankBankAccountComponent implements BankAccountComponentInterface {
     }
 
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
-        bankAccountComponentInterface = new BankBankAccountComponent(accountRepository);
+        bankAccountComponentInterface = new BankBankAccountComponent(bankAccountRepository);
         bankAccountComponentInterface.transferMoney(sourceAccountNr, targetAccountNr, money);
     }
 

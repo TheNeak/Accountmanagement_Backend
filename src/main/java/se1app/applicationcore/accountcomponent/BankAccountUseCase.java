@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Neak on 04.12.2016.
  *
  */
-public class AccountUseCase implements AccountUseCaseInterface {
+public class BankAccountUseCase implements BankAccountUseCaseInterface {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private BankAccountRepository bankAccountRepository;
 
     @Override
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
-        BankAccount sourceBankAccount = accountRepository.findByAccountNr(sourceAccountNr);
-        BankAccount targetBankAccount = accountRepository.findByAccountNr(targetAccountNr);
+        BankAccount sourceBankAccount = bankAccountRepository.findByAccountNr(sourceAccountNr);
+        BankAccount targetBankAccount = bankAccountRepository.findByAccountNr(targetAccountNr);
         if (sourceBankAccount == null) {
             throw new BankAccountNotFoundException(sourceAccountNr);
         }

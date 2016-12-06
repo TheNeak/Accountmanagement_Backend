@@ -25,10 +25,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 @ContextConfiguration(classes = Application.class)
 @ActiveProfiles("test")
-public class BankAccountRepositoryTest {
+public class BankBankAccountRepositoryTest {
 
     @Autowired
-    AccountRepository accountRepository;
+    BankAccountRepository bankAccountRepository;
 
     @Autowired
     BankRepository bankRepository;
@@ -44,20 +44,20 @@ public class BankAccountRepositoryTest {
         bankRepository.save(bank2);
         acc01 = new BankAccount(1, bank1);
         acc02 = new BankAccount(2, bank2);
-        accountRepository.save(acc01);
-        accountRepository.save(acc02);
+        bankAccountRepository.save(acc01);
+        bankAccountRepository.save(acc02);
     }
 
     @Ignore
     @After
     public void cleanUp() throws Exception {
         bankRepository.deleteAll();
-        accountRepository.deleteAll();
+        bankAccountRepository.deleteAll();
     }
 
     @Test
     public void findAllTest() throws Exception {
-        List<BankAccount> bankAccounts = accountRepository.findAll();
+        List<BankAccount> bankAccounts = bankAccountRepository.findAll();
         assertThat(bankAccounts).hasSize(2);
         assertThat(bankAccounts).extracting(BankAccount::getAccountNr).contains(1);
         assertThat(bankAccounts).extracting(BankAccount::getAccountNr).contains(2);
@@ -67,7 +67,7 @@ public class BankAccountRepositoryTest {
 
     @Test
     public void findByAccountNrTest() throws Exception {
-        BankAccount bankAccount = accountRepository.findByAccountNr(1);
+        BankAccount bankAccount = bankAccountRepository.findByAccountNr(1);
         assertThat(bankAccount).isEqualTo(acc01);
     }
 }

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
  * Created by Neak on 03.12.2016.
  */
 @Repository
-public interface AccountRepository extends JpaRepository<BankAccount, Integer> {
+public interface BankAccountRepository extends JpaRepository<BankAccount, Integer> {
     BankAccount findByAccountNr(Integer accountNr);
 }

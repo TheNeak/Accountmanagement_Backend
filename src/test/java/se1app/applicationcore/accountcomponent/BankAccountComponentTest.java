@@ -22,7 +22,7 @@ import se1app.applicationcore.bankcomponent.BankRepository;
 public class BankAccountComponentTest {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private BankAccountRepository bankAccountRepository;
 
     @Autowired
     private BankRepository bankRepository;
@@ -39,11 +39,11 @@ public class BankAccountComponentTest {
         bankRepository.save(bank);
         sourceBankAccount = new BankAccount(1, bank);
         targetBankAccount = new BankAccount(2, bank);
-        accountRepository.save(sourceBankAccount);
-        accountRepository.save(targetBankAccount);
+        bankAccountRepository.save(sourceBankAccount);
+        bankAccountRepository.save(targetBankAccount);
 
         // wir instanziieren unsere Komponente selber, um Mock-Abhängigkeiten zu übergeben
-        testObject = new BankBankAccountComponent(accountRepository);
+        testObject = new BankBankAccountComponent(bankAccountRepository);
     }
 
     @Test
