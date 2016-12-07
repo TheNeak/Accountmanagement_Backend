@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se1app.applicationcore.bankaccount_component.BankAccount;
 import se1app.applicationcore.bankaccount_component.BankAccountComponentInterface;
+import se1app.applicationcore.bankaccount_component.BankAccountIsLowOnMoneyException;
+import se1app.applicationcore.bankaccount_component.BankAccountNotFoundException;
 import se1app.applicationcore.customer_component.Customer;
 import se1app.applicationcore.customer_component.CustomerComponentInterface;
 import se1app.applicationcore.customer_component.CustomerNotFoundException;
@@ -26,7 +29,18 @@ class ApplicationFacadeController {
     @Autowired
     private BankAccountComponentInterface bankAccountComponentInterface;
 
-    // TODO REST für AccountComp
+
+    @RequestMapping("/bankaccounts")
+    public List<BankAccount> getAllBankAccounts()
+    {
+        return bankAccountComponentInterface.getAllBankAccounts();
+    }
+
+    @RequestMapping(value = "/transactions/{money}", method = RequestMethod.POST)
+    public String transferMoney(@PathVariable("money") Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
+        bankAccountComponentInterface.transferMoney(01,02,money);
+        return "The amount of"+money+"€ was sent";
+    }
 
     @RequestMapping("/customers")
     public List<Customer> getAllCustomers()
