@@ -16,6 +16,8 @@ public class BankAccountComponent implements BankAccountComponentInterface {
 
     private BankAccountComponentInterface bankAccountComponentInterface;
 
+    private BankAccountUseCase baUseCase = new BankAccountUseCase();
+
     @Autowired
     public BankAccountComponent(BankAccountRepository bankAccountRepository) {
         this.bankAccountRepository = bankAccountRepository;
@@ -80,8 +82,7 @@ public class BankAccountComponent implements BankAccountComponentInterface {
         if (money == null)
             throw new IllegalArgumentException("money must not be null");
 
-        bankAccountComponentInterface = new BankAccountComponent(bankAccountRepository);
-        bankAccountComponentInterface.transferMoney(sourceAccountNr, targetAccountNr, money);
+        baUseCase.transferMoney(sourceAccountNr, targetAccountNr, money);
     }
 
 }
