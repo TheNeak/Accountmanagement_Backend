@@ -26,10 +26,11 @@ public class Application {
 
             Bank bank01 = new Bank(01);
             bankRepository.save(bank01);
-            BankAccount acc01 = new BankAccount(01,bank01);
-            BankAccount acc02 = new BankAccount(02,bank01);
-            BankAccount acc03 = new BankAccount(03,bank01);
+            BankAccount acc01 = new BankAccount(1,bank01);
+            BankAccount acc02 = new BankAccount(2,bank01);
+            BankAccount acc03 = new BankAccount(3,bank01);
             bankAccountRepository.save(Arrays.asList(acc01, acc02, acc03));
+
         };
     }
 

@@ -34,6 +34,10 @@ public interface BankAccountComponentInterface {
      */
     void addBankAccount(BankAccount bankAccount);
 
+    /**
+     * Fügt dem Konto Geld hinzu.
+     */
+    void addMoney(BankAccount bankAccount, Integer amount);
 
     /**
      * Liefert den Kontostand der für den gegebenen BankAccount (ID) getätigten Reservierungen.

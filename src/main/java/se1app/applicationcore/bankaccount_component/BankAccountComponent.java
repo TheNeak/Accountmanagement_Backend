@@ -46,11 +46,17 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     public BankAccount getBankAccount(int positiveBankAccountId) {
         if (positiveBankAccountId <= 0)
             throw new IllegalArgumentException("bankAccountId must be > 0");
-        return bankAccountRepository.findOne(positiveBankAccountId);
+        return bankAccountRepository.findByAccountNr(positiveBankAccountId);
     }
 
     @Override
     public void addBankAccount(BankAccount bankAccount) {
+        bankAccountRepository.save(bankAccount);
+    }
+
+    @Override
+    public void addMoney(BankAccount bankAccount, Integer amount) {
+        bankAccount.setMoney(bankAccount.getMoney()+amount);
         bankAccountRepository.save(bankAccount);
     }
 

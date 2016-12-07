@@ -52,6 +52,7 @@ public class BankAccount {
         }
         return money;
     }
+    public void setMoney(Integer amount){ this.money = amount; }
 
     public void book(Integer amount){
         bookingPositions.add(new BookingPosition(amount));
