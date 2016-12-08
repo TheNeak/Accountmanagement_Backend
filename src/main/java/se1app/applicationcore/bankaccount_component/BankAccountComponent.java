@@ -57,8 +57,9 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     }
 
     @Override
-    public void addMoney(BankAccount bankAccount, Integer amount) {
-        bankAccount.setMoney(bankAccount.getMoney()+amount);
+    public void addMoney(Integer accountNr, Integer amount) {
+        BankAccount bankAccount = bankAccountRepository.findByAccountNr(accountNr);
+        bankAccount.book(amount);
         bankAccountRepository.save(bankAccount);
     }
 

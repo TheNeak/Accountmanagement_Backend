@@ -3,6 +3,8 @@ package se1app.applicationcore.bankaccount_component;
 import se1app.applicationcore.bank_component.Bank;
 
 import javax.persistence.*;
+import java.awt.print.Book;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +25,8 @@ public class BankAccount {
     private Bank bank;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<BookingPosition> bookingPositions;
+    @ElementCollection
+    private List<BookingPosition> bookingPositions = new ArrayList<>();
 
     public BankAccount() {
     }
@@ -52,11 +55,11 @@ public class BankAccount {
         }
         return money;
     }
-    public void setMoney(Integer amount){ this.money = amount; }
 
     public void book(Integer amount){
-        bookingPositions.add(new BookingPosition(amount));
-        this.money += amount;
+        BookingPosition bp = new BookingPosition(amount);
+        this.bookingPositions.add(bp);
+        this.money = this.money + amount;
     }
 
     @Override
