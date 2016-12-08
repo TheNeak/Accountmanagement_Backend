@@ -41,17 +41,18 @@ class ApplicationFacadeController {
         return bankAccountComponentInterface.getBankAccount(accountNr);
     }
 
-//    @RequestMapping(value = "/transactions/{accountNr}/add/{money}", method = RequestMethod.GET)
-//    public String addMoney(@PathVariable("accountNr") Integer accountNr, @PathVariable("money") Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
-//        bankAccountComponentInterface.addMoney(accountNr,money);
+    @RequestMapping(value = "/transactions/{accountNr}/add/{money}", method = RequestMethod.GET)
+    public String addMoney(@PathVariable("accountNr") Integer accountNr, @PathVariable("money") Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
+        BankAccount account = bankAccountComponentInterface.getBankAccount(accountNr);
+        bankAccountComponentInterface.addMoney(account,money);
+        return "The amount of "+money+"€ was added to account"+account;
+    }
+//
+//    @RequestMapping(value = "/transactions/transfer/{money}", method = RequestMethod.GET)
+//    public String transferMoney(@PathVariable("money") Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
+//        bankAccountComponentInterface.transferMoney(01,02,money);
 //        return "The amount of"+money+"€ was sent";
 //    }
-
-    @RequestMapping(value = "/transactions/transfer/{money}", method = RequestMethod.GET)
-    public String transferMoney(@PathVariable("money") Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
-        bankAccountComponentInterface.transferMoney(01,02,money);
-        return "The amount of"+money+"€ was sent";
-    }
 
     @RequestMapping("/customers")
     public List<Customer> getAllCustomers()
