@@ -1,5 +1,6 @@
 package se1app.applicationcore.bankaccount_component;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import se1app.applicationcore.bank_component.Bank;
 
 import javax.persistence.*;
@@ -24,9 +25,11 @@ public class BankAccount {
     @ManyToOne
     private Bank bank;
 
-    @OneToMany(cascade = CascadeType.ALL)
     @ElementCollection
-    private List<BookingPosition> bookingPositions = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<BookingPosition> bookingPositions;
+
+
 
     public BankAccount() {
     }
@@ -60,6 +63,10 @@ public class BankAccount {
         BookingPosition bp = new BookingPosition(amount);
         this.bookingPositions.add(bp);
         this.money = this.money + amount;
+    }
+
+    public List<BookingPosition> getBookingPositions() {
+        return bookingPositions;
     }
 
     @Override

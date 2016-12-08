@@ -1,14 +1,14 @@
 package se1app.applicationcore.bankaccount_component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
 
 /**
  * Created by Neak on 04.12.2016.
  */
 @Entity
-public class BookingPosition {
+public class BookingPosition implements Serializable{
 
     @Id
     @GeneratedValue
