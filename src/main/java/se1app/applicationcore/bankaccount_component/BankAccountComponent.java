@@ -81,15 +81,14 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     @Override
     public void bookMoney(Integer accountNr, Integer amount) {
         BankAccount bankAccount = bankAccountRepository.findByAccountNr(accountNr);
+        Bank sourceBank = bankRepository.findByNr(bankAccount.getBank().getNr());
         bankAccount.addMoney(amount);
         BookingPosition bp = new BookingPosition(amount);
         bookingPositionRepository.save(bp);
         bankAccount.bookingPositions.add(bp);
-        bankAccountRepository.save(bankAccount);
-
-        Bank sourceBank = bankRepository.findByNr(bankAccount.getBank().getNr());
         bankComponentInterface.increaseReservationStatistics(sourceBank);
         bankRepository.save(sourceBank);
+        bankAccountRepository.save(bankAccount);
     }
 
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {

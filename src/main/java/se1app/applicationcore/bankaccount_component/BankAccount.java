@@ -14,7 +14,7 @@ import java.util.List;
 public class BankAccount {
     @ElementCollection
     @OneToMany(cascade = CascadeType.ALL)
-    protected static List<BookingPosition> bookingPositions = new ArrayList<>();
+    protected List<BookingPosition> bookingPositions = new ArrayList<>();
     @Id
     @GeneratedValue
     private Integer id;
