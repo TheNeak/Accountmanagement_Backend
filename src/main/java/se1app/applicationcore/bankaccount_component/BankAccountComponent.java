@@ -81,12 +81,12 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     @Override
     public void bookMoney(Integer accountNr, Integer amount) {
         BankAccount bankAccount = bankAccountRepository.findByAccountNr(accountNr);
-        Bank sourceBank = bankRepository.findByNr(bankAccount.getBank().getNr());
         bankAccount.addMoney(amount);
         BookingPosition bp = new BookingPosition(amount);
         bookingPositionRepository.save(bp);
         bankAccount.bookingPositions.add(bp);
-        bankComponentInterface.increaseReservationStatistics(sourceBank);
+        Bank sourceBank = bankRepository.findByNr(bankAccount.getBank().getId());
+        sourceBank.increaseReservationStatistics();
         bankRepository.save(sourceBank);
         bankAccountRepository.save(bankAccount);
     }

@@ -16,7 +16,7 @@ public class Bank {
 
     private Integer nr;
 
-    private Integer numberOfReservations;
+    private Integer numberOfReservations = 0;
 
     public Bank() {
     }
@@ -38,12 +38,12 @@ public class Bank {
         this.nr = nr;
     }
 
-    public void setNumberOfReservations(Integer numberOfReservations) {
-        this.numberOfReservations = numberOfReservations;
-    }
-
     public Integer getNumberOfReservations() {
         return numberOfReservations;
+    }
+
+    public void setNumberOfReservations(Integer numberOfReservations) {
+        this.numberOfReservations = numberOfReservations;
     }
 
     public void increaseReservationStatistics() {
