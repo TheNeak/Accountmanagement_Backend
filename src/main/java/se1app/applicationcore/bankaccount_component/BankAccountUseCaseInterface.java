@@ -8,4 +8,5 @@ public interface BankAccountUseCaseInterface {
 
     void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException;
 
+    void bookMoney(Integer accountNr, Integer amount);
 }

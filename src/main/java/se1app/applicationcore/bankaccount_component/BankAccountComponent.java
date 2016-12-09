@@ -2,8 +2,6 @@ package se1app.applicationcore.bankaccount_component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se1app.applicationcore.bank_component.Bank;
-import se1app.applicationcore.bank_component.BankComponentInterface;
 import se1app.applicationcore.bank_component.BankRepository;
 
 import java.util.List;
@@ -20,8 +18,6 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     private BookingPositionRepository bookingPositionRepository;
 
     private BankRepository bankRepository;
-
-    private BankComponentInterface bankComponentInterface;
 
     private BankAccountUseCase baUseCase = new BankAccountUseCase();
 
@@ -80,15 +76,8 @@ public class BankAccountComponent implements BankAccountComponentInterface {
 
     @Override
     public void bookMoney(Integer accountNr, Integer amount) {
-        BankAccount bankAccount = bankAccountRepository.findByAccountNr(accountNr);
-        bankAccount.addMoney(amount);
-        BookingPosition bp = new BookingPosition(amount);
-        bookingPositionRepository.save(bp);
-        bankAccount.bookingPositions.add(bp);
-        Bank sourceBank = bankRepository.findByNr(bankAccount.getBank().getId());
-        sourceBank.increaseReservationStatistics();
-        bankRepository.save(sourceBank);
-        bankAccountRepository.save(bankAccount);
+        System.err.println("NR:" + accountNr + "money:" + amount);
+        baUseCase.bookMoney(accountNr, amount);
     }
 
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
