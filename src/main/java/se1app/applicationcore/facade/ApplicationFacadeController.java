@@ -49,7 +49,7 @@ class ApplicationFacadeController {
 
     @RequestMapping(value = "/transactions/transfer/{money}", method = RequestMethod.GET)
     public String transferMoney(@PathVariable("money") Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
-        bankAccountComponentInterface.transferMoney(01,02,money);
+        bankAccountComponentInterface.transferMoney(1, 2, money);
         return "The amount of "+money+"€ was sent from 01 to 02";
     }
 

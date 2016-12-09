@@ -2,6 +2,9 @@ package se1app.applicationcore.bankaccount_component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import se1app.applicationcore.bank_component.Bank;
+import se1app.applicationcore.bank_component.BankComponentInterface;
+import se1app.applicationcore.bank_component.BankRepository;
 
 import java.util.List;
 
@@ -16,14 +19,18 @@ public class BankAccountComponent implements BankAccountComponentInterface {
 
     private BookingPositionRepository bookingPositionRepository;
 
-    private BankAccountComponentInterface bankAccountComponentInterface;
+    private BankRepository bankRepository;
+
+    private BankComponentInterface bankComponentInterface;
 
     private BankAccountUseCase baUseCase = new BankAccountUseCase();
 
+
     @Autowired
-    public BankAccountComponent(BankAccountRepository bankAccountRepository, BookingPositionRepository bookingPositionRepository) {
+    public BankAccountComponent(BankAccountRepository bankAccountRepository, BookingPositionRepository bookingPositionRepository, BankRepository bankRepository) {
         this.bankAccountRepository = bankAccountRepository;
         this.bookingPositionRepository = bookingPositionRepository;
+        this.bankRepository = bankRepository;
     }
 
     @Override
@@ -60,16 +67,6 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     }
 
     @Override
-    public void bookMoney(Integer accountNr, Integer amount) {
-        BankAccount bankAccount = bankAccountRepository.findByAccountNr(accountNr);
-        bankAccount.addMoney(amount);
-        BookingPosition bp = new BookingPosition(amount);
-        bookingPositionRepository.save(bp);
-        bankAccount.bookingPositions.add(bp);
-        bankAccountRepository.save(bankAccount);
-    }
-
-    @Override
     public int getMoneyOfAccount(Integer accountNr) throws BankAccountNotFoundException {
         if (accountNr <= 0)
             throw new IllegalArgumentException("bankAccountId must be > 0");
@@ -79,6 +76,20 @@ public class BankAccountComponent implements BankAccountComponentInterface {
             throw new BankAccountNotFoundException(accountNr);
         }
         return acc.getMoney();
+    }
+
+    @Override
+    public void bookMoney(Integer accountNr, Integer amount) {
+        BankAccount bankAccount = bankAccountRepository.findByAccountNr(accountNr);
+        bankAccount.addMoney(amount);
+        BookingPosition bp = new BookingPosition(amount);
+        bookingPositionRepository.save(bp);
+        bankAccount.bookingPositions.add(bp);
+        bankAccountRepository.save(bankAccount);
+
+        Bank sourceBank = bankRepository.findByNr(bankAccount.getBank().getNr());
+        bankComponentInterface.increaseReservationStatistics(sourceBank);
+        bankRepository.save(sourceBank);
     }
 
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {

@@ -12,7 +12,9 @@ public class BankAccountUseCase implements BankAccountUseCaseInterface {
     private BankAccountRepository bankAccountRepository;
 
     @Autowired
-    private BookingPositionRepository bookingPositionRepository;
+    private BankAccountComponentInterface bankAccountComponentInterface;
+
+
 
     @Override
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
@@ -27,16 +29,9 @@ public class BankAccountUseCase implements BankAccountUseCaseInterface {
         if (sourceBankAccount.getMoney() < money) {
             throw new BankAccountIsLowOnMoneyException(sourceAccountNr);
         }
-        sourceBankAccount.addMoney(-money);
-        BookingPosition sourceBp = new BookingPosition(-money);
-        bookingPositionRepository.save(sourceBp);
-        sourceBankAccount.bookingPositions.add(sourceBp);
 
-        targetBankAccount.addMoney(money);
-        BookingPosition targetBp = new BookingPosition(money);
-        bookingPositionRepository.save(targetBp);
-        targetBankAccount.bookingPositions.add(targetBp);
+        bankAccountComponentInterface.bookMoney(sourceAccountNr, -money);
+        bankAccountComponentInterface.bookMoney(targetAccountNr, money);
 
-        sourceBankAccount.getBank().increaseReservationStatistics();
     }
 }

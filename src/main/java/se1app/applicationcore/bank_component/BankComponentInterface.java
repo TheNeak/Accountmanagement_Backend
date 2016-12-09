@@ -34,6 +34,8 @@ public interface BankComponentInterface {
      */
     void addBank(Bank bank);
 
+    void increaseReservationStatistics(Bank bank);
+
     /**
      * Liefert die Anzahl der für den gegebenen Film (Titel) getätigten Reservierungen.
      */

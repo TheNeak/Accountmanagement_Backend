@@ -54,6 +54,11 @@ public class BankComponent implements BankComponentInterface {
     }
 
     @Override
+    public void increaseReservationStatistics(Bank bank) {
+        bank.increaseReservationStatistics();
+    }
+
+    @Override
     public int getNumberOfReservations(Integer officeNr) throws BankNotFoundException {
         if (officeNr <= 0)
             throw new IllegalArgumentException("officeNr must be > 0");
