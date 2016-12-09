@@ -14,13 +14,16 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     // Autowired by Constructor!
     private BankAccountRepository bankAccountRepository;
 
+    private BookingPositionRepository bookingPositionRepository;
+
     private BankAccountComponentInterface bankAccountComponentInterface;
 
     private BankAccountUseCase baUseCase = new BankAccountUseCase();
 
     @Autowired
-    public BankAccountComponent(BankAccountRepository bankAccountRepository) {
+    public BankAccountComponent(BankAccountRepository bankAccountRepository, BookingPositionRepository bookingPositionRepository) {
         this.bankAccountRepository = bankAccountRepository;
+        this.bookingPositionRepository = bookingPositionRepository;
     }
 
     @Override
@@ -57,9 +60,12 @@ public class BankAccountComponent implements BankAccountComponentInterface {
     }
 
     @Override
-    public void addMoney(Integer accountNr, Integer amount) {
+    public void bookMoney(Integer accountNr, Integer amount) {
         BankAccount bankAccount = bankAccountRepository.findByAccountNr(accountNr);
-        bankAccount.book(amount);
+        bankAccount.addMoney(amount);
+        BookingPosition bp = new BookingPosition(amount);
+        bookingPositionRepository.save(bp);
+        bankAccount.bookingPositions.add(bp);
         bankAccountRepository.save(bankAccount);
     }
 

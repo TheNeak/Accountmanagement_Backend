@@ -12,23 +12,17 @@ import java.util.List;
  */
 @Entity
 public class BankAccount {
+    @ElementCollection
+    @OneToMany(cascade = CascadeType.ALL)
+    protected static List<BookingPosition> bookingPositions = new ArrayList<>();
     @Id
     @GeneratedValue
     private Integer id;
-
     @Column(unique=true)
     private Integer accountNr;
-
-    private Integer money;
-
+    private Integer money = 0;
     @ManyToOne
     private Bank bank;
-
-    @ElementCollection
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<BookingPosition> bookingPositions = new ArrayList<>();
-
-
 
     public BankAccount() {
     }
@@ -58,9 +52,7 @@ public class BankAccount {
         return money;
     }
 
-    public void book(Integer amount){
-        BookingPosition bp = new BookingPosition(amount);
-        this.bookingPositions.add(bp);
+    public void addMoney(Integer amount) {
         this.money = this.money + amount;
     }
 

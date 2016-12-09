@@ -43,7 +43,7 @@ class ApplicationFacadeController {
 
     @RequestMapping(value = "/transactions/{accountNr}/add/{money}", method = RequestMethod.GET)
     public String addMoney(@PathVariable("accountNr") Integer accountNr, @PathVariable("money") Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
-        bankAccountComponentInterface.addMoney(accountNr,money);
+        bankAccountComponentInterface.bookMoney(accountNr, money);
         return "The amount of "+money+"€ was added to account"+accountNr;
     }
 
