@@ -14,8 +14,6 @@ public class BankAccountUseCase implements BankAccountUseCaseInterface {
     @Autowired
     private BankAccountComponentInterface bankAccountComponentInterface;
 
-
-
     @Override
     public void transferMoney(Integer sourceAccountNr, Integer targetAccountNr, Integer money) throws BankAccountNotFoundException, BankAccountIsLowOnMoneyException {
         BankAccount sourceBankAccount = bankAccountRepository.findByAccountNr(sourceAccountNr);
