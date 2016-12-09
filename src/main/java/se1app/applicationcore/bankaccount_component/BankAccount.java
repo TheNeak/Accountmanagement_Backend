@@ -1,10 +1,9 @@
 package se1app.applicationcore.bankaccount_component;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import se1app.applicationcore.bank_component.Bank;
 
 import javax.persistence.*;
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +26,7 @@ public class BankAccount {
 
     @ElementCollection
     @OneToMany(cascade = CascadeType.ALL)
-    private List<BookingPosition> bookingPositions;
+    private List<BookingPosition> bookingPositions = new ArrayList<>();
 
 
 
@@ -74,12 +73,13 @@ public class BankAccount {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BankAccount bankAccount = (BankAccount) o;
+        BankAccount that = (BankAccount) o;
 
-        if (id != null ? !id.equals(bankAccount.id) : bankAccount.id != null) return false;
-        if (accountNr != null ? !accountNr.equals(bankAccount.accountNr) : bankAccount.accountNr != null) return false;
-        if (money != null ? !money.equals(bankAccount.money) : bankAccount.money != null) return false;
-        return bank != null ? bank.equals(bankAccount.bank) : bankAccount.bank == null;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (accountNr != null ? !accountNr.equals(that.accountNr) : that.accountNr != null) return false;
+        if (money != null ? !money.equals(that.money) : that.money != null) return false;
+        if (bank != null ? !bank.equals(that.bank) : that.bank != null) return false;
+        return bookingPositions != null ? bookingPositions.equals(that.bookingPositions) : that.bookingPositions == null;
     }
 
     @Override
@@ -88,6 +88,7 @@ public class BankAccount {
         result = 31 * result + (accountNr != null ? accountNr.hashCode() : 0);
         result = 31 * result + (money != null ? money.hashCode() : 0);
         result = 31 * result + (bank != null ? bank.hashCode() : 0);
+        result = 31 * result + (bookingPositions != null ? bookingPositions.hashCode() : 0);
         return result;
     }
 
@@ -98,6 +99,7 @@ public class BankAccount {
                 ", accountNr=" + accountNr +
                 ", money=" + money +
                 ", bank=" + bank +
+                ", bookingPositions=" + bookingPositions +
                 '}';
     }
 }
