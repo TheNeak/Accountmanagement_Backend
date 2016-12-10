@@ -19,7 +19,7 @@ public class BankAccountComponent implements BankAccountComponentInterface {
 
     private BankRepository bankRepository;
 
-    private BankAccountUseCase baUseCase = new BankAccountUseCase();
+    private BankAccountUseCase baUseCase;
 
 
     @Autowired
@@ -76,7 +76,7 @@ public class BankAccountComponent implements BankAccountComponentInterface {
 
     @Override
     public void bookMoney(Integer accountNr, Integer amount) {
-        System.err.println("NR:" + accountNr + "money:" + amount);
+        baUseCase = new BankAccountUseCase(bankAccountRepository, bookingPositionRepository, bankRepository);
         baUseCase.bookMoney(accountNr, amount);
     }
 
@@ -87,7 +87,7 @@ public class BankAccountComponent implements BankAccountComponentInterface {
             throw new IllegalArgumentException("targetAccountNr must not be null");
         if (money == null)
             throw new IllegalArgumentException("money must not be null");
-
+        baUseCase = new BankAccountUseCase(bankAccountRepository, bookingPositionRepository, bankRepository);
         baUseCase.transferMoney(sourceAccountNr, targetAccountNr, money);
     }
 
