@@ -12,9 +12,6 @@ import java.util.List;
  */
 @Entity
 public class BankAccount {
-    @ElementCollection
-    @OneToMany(cascade = CascadeType.ALL)
-    protected List<BookingPosition> bookingPositions = new ArrayList<>();
     @Id
     @GeneratedValue
     private Integer id;
@@ -23,6 +20,9 @@ public class BankAccount {
     private Integer money = 0;
     @ManyToOne
     private Bank bank;
+    @ElementCollection
+    @OneToMany(cascade = CascadeType.ALL)
+    protected List<BookingPosition> bookingPositions = new ArrayList<>();
 
     public BankAccount() {
     }
