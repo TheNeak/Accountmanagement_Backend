@@ -17,6 +17,7 @@ import se1app.applicationcore.movie_component.MovieNotFoundException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 class ApplicationFacadeController {
 
